@@ -9,7 +9,7 @@ const AdminDashboard = () => {
 
   const fetchUsersWithTrips = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/admin/users-with-trips', {
+      const res = await axios.get(`${process.env.REACT_APP_API_BASE}/api/admin/users-with-trips`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
@@ -24,7 +24,7 @@ const AdminDashboard = () => {
   const deleteTrip = async (tripId) => {
     if (!window.confirm("Delete this trip?")) return;
     try {
-      await axios.delete(`http://localhost:5000/api/admin/trip/${tripId}`, {
+      await axios.delete(`${process.env.REACT_APP_API_BASE}/api/admin/trip/${tripId}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
       fetchUsersWithTrips(); // Refresh data
@@ -36,7 +36,7 @@ const AdminDashboard = () => {
   const deleteUser = async (userId) => {
     if (!window.confirm("Delete this user and their trips?")) return;
     try {
-      await axios.delete(`http://localhost:5000/api/admin/user/${userId}`, {
+      await axios.delete(`${process.env.REACT_APP_API_BASE}/api/admin/user/${userId}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
       fetchUsersWithTrips(); // Refresh data
