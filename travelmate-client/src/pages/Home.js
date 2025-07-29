@@ -11,7 +11,7 @@ const Home = () => {
     try {
       console.log("Form data sent to backend:", data);
       const token = localStorage.getItem('token');
-      const response = await fetch("http://localhost:5000/api/trips/generate", {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE}/api/trips/generate`, {
         method: "POST",
         headers: { "Content-Type": "application/json",
              "Authorization": `Bearer ${token}`
@@ -28,7 +28,7 @@ const Home = () => {
   };
 
   const handleAIPlan = async ({ destination, days, travelType, budget }) => {
-    const res = await fetch("http://localhost:5000/api/ai/ai-plan", {
+    const res = await fetch(`${process.env.REACT_APP_API_BASE}/api/ai/ai-plan`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ destination, days, travelType, budget })
