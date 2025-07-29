@@ -6,7 +6,7 @@ const ViewTrips = () => {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    fetch("http://localhost:5000/api/trips/all", {
+    fetch(`${process.env.REACT_APP_API_BASE}/api/trips/all`, {
       headers: {
         "Authorization": `Bearer ${token}`
       }
@@ -20,7 +20,7 @@ const ViewTrips = () => {
   }, []);
 
   const handleDelete = async (id) => {
-    await fetch(`http://localhost:5000/api/trips/${id}`, {
+    await fetch(`${process.env.REACT_APP_API_BASE}/api/trips/${id}`, {
       method: 'DELETE',
     });
     setTrips(trips.filter(trip => trip._id !== id));
