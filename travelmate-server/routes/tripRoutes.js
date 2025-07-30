@@ -5,7 +5,7 @@ const { generateItinerary, getAllTrips } = require('../controllers/tripControlle
 const Trip = require('../models/Trip');
 const auth = require('../middleware/auth');
 
-// 🔒 Protected routes
+//  Protected routes
 router.post('/generate', auth, generateItinerary);
 router.get('/all', auth, async (req, res) => {
   try {
@@ -17,7 +17,7 @@ router.get('/all', auth, async (req, res) => {
   }
 });
 
-// 🗑 DELETE a trip (by owner only)
+//  DELETE a trip (by owner only)
 router.delete('/:id', auth, async (req, res) => {
   try {
     const trip = await Trip.findOneAndDelete({ _id: req.params.id, userId: req.userId });
@@ -28,7 +28,7 @@ router.delete('/:id', auth, async (req, res) => {
   }
 });
 
-// ✏️ UPDATE a trip (by owner only)
+//  UPDATE a trip (by owner only)
 router.put('/:id', auth, async (req, res) => {
   try {
     const updatedTrip = await Trip.findOneAndUpdate(
