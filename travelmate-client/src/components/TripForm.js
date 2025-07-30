@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css'; // import styles
 
 const TripForm = ({ onSubmit }) => {
   const [formData, setFormData] = useState({
     destination: '',
     budget: '',
-    startDate: '',
-    endDate: '',
+    startDate: null,
+    endDate: null,
     travelType: 'solo',
   });
 
@@ -15,8 +17,13 @@ const TripForm = ({ onSubmit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Submitting form data:", formData);
-    onSubmit(formData);
+    // Convert Date objects to strings if needed
+    const formattedData = {
+      ...formData,
+      startDate: formData.startDate?.toISOString().split('T')[0],
+      endDate: formData.endDate?.toISOString().split('T')[0]
+    };
+    onSubmit(formattedData);
   };
 
   return (
@@ -31,11 +38,23 @@ const TripForm = ({ onSubmit }) => {
       </div>
       <div className="mb-3">
         <label>Start Date</label>
-        <input type="date" className="form-control" name="startDate" onChange={handleChange} required />
+        <DatePicker
+          selected={formData.startDate}
+          onChange={(date) => setFormData({...formData, startDate: date})}
+          className="form-control"
+          placeholderText="Select Start Date"
+          dateFormat="dd-MM-yyyy"
+        />
       </div>
       <div className="mb-3">
         <label>End Date</label>
-        <input type="date" className="form-control" name="endDate" onChange={handleChange} required />
+        <DatePicker
+          selected={formData.endDate}
+          onChange={(date) => setFormData({...formData, endDate: date})}
+          className="form-control"
+          placeholderText="Select End Date"
+          dateFormat="dd-MM-yyyy"
+        />
       </div>
       <div className="mb-3">
         <label>Travel Type</label>
