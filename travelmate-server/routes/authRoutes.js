@@ -23,18 +23,18 @@ router.post('/login', async (req, res) => {
     const user = await User.findOne({ email });
 
     if (!user) {
-      console.log("❌ No user found");
+      console.log(" No user found");
       return res.status(401).json({ error: 'Invalid credentials' });
     }
 
     const isMatch = await user.comparePassword(password);
 
     if (!isMatch) {
-      console.log("❌ Password doesn't match");
+      console.log(" Password doesn't match");
       return res.status(401).json({ error: 'Invalid credentials' });
     }
 
-    console.log("✅ Login successful");
+    console.log(" Login successful");
 
     const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '2d' });
 
@@ -46,7 +46,7 @@ router.post('/login', async (req, res) => {
       },
     });
   } catch (err) {
-    console.error("❌ Login error:", err);
+    console.error(" Login error:", err);
     res.status(500).json({ error: "Internal server error" });
   }
 });
